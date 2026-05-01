@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Võ Nhật Hào Portfolio</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- AOS CSS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ========== DARK MODE VARIABLES ========== */
+        :root {
+            --bg-body: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --card-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.96);
+            --border-color: #e2e8f0;
+            --skill-bg: #ffffff;
+            --footer-bg: #0f172a;
+            --footer-text: #94a3b8;
+            --badge-bg: #e0f2fe;
+            --badge-text: #0369a1;
+        }
+
+        body.dark {
+            --bg-body: #0f172a;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --card-bg: #1e293b;
+            --header-bg: rgba(15, 23, 42, 0.96);
+            --border-color: #334155;
+            --skill-bg: #1e293b;
+            --footer-bg: #020617;
+            --footer-text: #64748b;
+            --badge-bg: #1e3a5f;
+            --badge-text: #7dd3fc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.5;
+            scroll-behavior: smooth;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #2563eb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .preloader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* header + navigation */
+        header {
+            background: var(--header-bg);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: background 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        /* Dark mode toggle button */
+        .dark-mode-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 0.4rem 0.9rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+            color: var(--text-primary);
+        }
+        .dark-mode-toggle:hover {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        /* Download CV button */
+        .btn-cv {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-cv:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37,99,235,0.3);
+        }
+
+        /* Buttons & common */
+        .btn {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 0.7rem 1.6rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #2563eb;
+            color: #2563eb;
+        }
+
+        .btn-outline:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .hero-content {
+            flex: 1.2;
+        }
+
+        .badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            padding: 0.25rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #2563eb, #8b5cf6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin: 1.5rem 0;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-avatar {
+            flex: 0.8;
+            text-align: center;
+        }
+
+        .avatar-frame {
+            background: linear-gradient(145deg, var(--card-bg), #eef2ff);
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            padding: 12px;
+            box-shadow: 0 25px 40px -12px rgba(0,0,0,0.2);
+        }
+
+        .avatar-img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: inherit;
+            background: #cbd5e1;
+            object-fit: cover;
+            aspect-ratio: 1/1;
+        }
+
+        /* section titles */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: #2563eb;
+            margin: 0.8rem auto 0;
+            border-radius: 4px;
+        }
+
+        /* skills grid - phân loại */
+        .skills-category {
+            margin-bottom: 2rem;
+        }
+        .skills-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            border-left: 4px solid #2563eb;
+            padding-left: 1rem;
+        }
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .skill-card {
+            background: var(--skill-bg);
+            border-radius: 60px;
+            padding: 0.6rem 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border-color);
+            transition: 0.2s;
+            color: var(--text-primary);
+        }
+
+        .skill-card i {
+            color: #2563eb;
+            font-size: 1.2rem;
+        }
+
+        .skill-card:hover {
+            border-color: #2563eb;
+            transform: translateY(-3px);
+        }
+
+        /* project cards */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+            transition: all 0.25s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px -12px rgba(37,99,235,0.2);
+        }
+
+        .project-img {
+            background: #334155;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #cbd5e1;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 1rem 0;
+        }
+
+        .project-tags span {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .project-links {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+        .project-link {
+            font-size: 0.85rem;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+        /* about */
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            align-items: center;
+            background: var(--card-bg);
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+            border: 1px solid var(--border-color);
+        }
+
+        .about-text {
+            flex: 2;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .about-highlight {
+            font-weight: 600;
+            color: var(--text-primary);
+            border-left: 3px solid #2563eb;
+            padding-left: 1rem;
+            margin: 1rem 0;
+        }
+
+        /* contact & footer */
+        .contact-flex {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            padding: 1.2rem 2rem;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-card i {
+            font-size: 1.5rem;
+            color: #2563eb;
+        }
+
+        .contact-card:hover {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .contact-card:hover i {
+            color: white;
+        }
+
+        footer {
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            transition: background 0.3s ease;
+        }
+
+        /* AOS custom delay cho từng thẻ kỹ năng (giữ nguyên hiệu ứng mượt) */
+        [data-aos] {
+            pointer-events: none;
+        }
+        [data-aos].aos-animate {
+            pointer-events: auto;
+        }
+
+        /* responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+            }
+            .nav-links {
+                justify-content: center;
+            }
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .about-highlight {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="loader"></div>
+    </div>
+
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">Võ Nhật Hào | IT & Web Developer</div>
+            <ul class="nav-links">
+                <li><a href="#home">Trang chủ</a></li>
+                <li><a href="#skills">Kỹ năng</a></li>
+                <li><a href="#projects">Dự án</a></li>
+                <li><a href="#about">Giới thiệu</a></li>
+                <li><a href="#contact">Liên hệ</a></li>
+                <li><button class="dark-mode-toggle" id="darkModeToggle"><i class="fas fa-moon"></i> Dark</button></li>
+                <li><a href="#" id="downloadCVBtn" class="btn-cv"><i class="fas fa-download"></i> Tải CV</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- Hero / Home -->
+    <section id="home">
+        <div class="container hero">
+            <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
+                <div class="badge">Chào mừng đến với thế giới của Nhật Hào</div>
+                <h1>Xin chào, em là <span class="highlight">Võ Nhật Hào</span><br>IT & Web Developer</h1>
+                <p>Biến những ý tưởng táo bạo thành trải nghiệm số đẹp mắt & mượt mà. Vừa code vừa quản trị hệ thống – em là cầu nối giữa công nghệ và sáng tạo.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn">Dự án <i class="fas fa-arrow-right"></i></a>
+                    <a href="#contact" class="btn btn-outline">Liên hệ ngay</a>
+                </div>
+            </div>
+            <div class="hero-avatar" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                <div class="avatar-frame">
+                    <img class="avatar-img" src="nhathao.jpg" alt="Avatar Nhật Hào">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills section (Phân loại rõ ràng + AOS cho từng category) -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Kỹ năng & Công nghệ</h2>
+            
+            <div class="skills-category" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                <h3><i class="fas fa-code"></i> Lập trình / Lập trình Web</h3>
+                <div class="skills-grid">
+                    <div class="skill-card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="150"><i class="fab fa-html5"></i> HTML5</div>
+                    <div class="skill-card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200"><i class="fab fa-css3-alt"></i> CSS3 / Tailwind</div>
+                    <div class="skill-card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="250"><i class="fab fa-js"></i> JavaScript (ES6+)</div>
+                    <div class="skill-card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="300"><i class="fab fa-react"></i> React.js</div>
+                    <div class="skill-card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="350"><i class="fab fa-vuejs"></i> Vue.js</div>
+                    <div class="skill-card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="400"><i class="fas fa-database"></i> Node.js / Express</div>
+                    <div class="skill-card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="450"><i class="fab fa-git-alt"></i> Git & Github</div>
+                    <div class="skill-card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="500"><i class="fas fa-mobile-alt"></i> Responsive Design</div>
+                    <div class="skill-card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="550"><i class="fas fa-python"></i> Python</div>
+                    <div class="skill-card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="600"><i class="fas fa-c"></i> C/C++</div>
+                </div>
+            </div>
+
+            <div class="skills-category" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                <h3><i class="fas fa-network-wired"></i> Quản trị mạng & Kỹ thuật IT</h3>
+                <div class="skills-grid">
+                    <div class="skill-card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="250"><i class="fas fa-server"></i> Quản trị Server (Windows/Linux)</div>
+                    <div class="skill-card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="300"><i class="fas fa-wrench"></i> Sửa chữa phần cứng</div>
+                    <div class="skill-card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="350"><i class="fas fa-chart-line"></i> Tối ưu hóa hệ thống</div>
+                    <div class="skill-card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="400"><i class="fas fa-shield-alt"></i> Bảo mật cơ bản</div>
+                    <div class="skill-card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="450"><i class="fas fa-database"></i> Cơ sở dữ liệu (MySQL, MongoDB)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects (AOS cho từng card) -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Dự án nổi bật</h2>
+            <div class="projects-grid">
+                <div class="project-card" data-aos="flip-left" data-aos-duration="800" data-aos-delay="100">
+                    <div class="project-img"><i class="fas fa-briefcase"></i></div>
+                    <div class="project-info">
+                        <h3>job-kiengiang</h3>
+                        <p>Nền tảng tìm kiếm việc làm bán thời gian & thực tập dành riêng cho sinh viên Cao Đẳng Nghề Kiên Giang. Kết nối doanh nghiệp với ứng viên trẻ.</p>
+                        <div class="project-tags"><span>React</span><span>NodeJS</span><span>MongoDB</span><span>JWT</span></div>
+                        <div class="project-links">
+                            <a href="https://github.com/Hao186188/job-kiengiang" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="https://job-kiengiang.vercel.app/" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-aos="flip-left" data-aos-duration="800" data-aos-delay="200">
+                    <div class="project-img"><i class="fas fa-store"></i></div>
+                    <div class="project-info">
+                        <h3>Hệ thống quản lý MB Store</h3>
+                        <p>Tool nội bộ quản lý thiết bị, bảo hành và nhân sự – được xây dựng trong thời gian thực tập tại MB Store, tối ưu quy trình vận hành.</p>
+                        <div class="project-tags"><span>Vue.js</span><span>Express</span><span>MySQL</span></div>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-aos="flip-left" data-aos-duration="800" data-aos-delay="300">
+                    <div class="project-img"><i class="fas fa-chalkboard-user"></i></div>
+                    <div class="project-info">
+                        <h3>Portfolio Cá Nhân</h3>
+                        <p>Trang web portfolio hiện đại thể hiện kỹ năng front-end, back-end và tối ưu trải nghiệm người dùng.</p>
+                        <div class="project-tags"><span>HTML/CSS</span><span>JS</span><span>Responsive</span></div>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About me (AOS) -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Về Nhật Hào một chút</h2>
+            <div class="about-content" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+                <div class="about-text">
+                    <p>🔹 Xin chào! Em là <strong>Nhật Hào</strong>, một kỹ thuật viên IT kiêm lập trình viên web với hơn 2 năm kinh nghiệm. Em luôn tìm kiếm thử thách mới để tạo ra sản phẩm có giá trị thực sự, kết hợp giữa quản trị mạng và phát triển phần mềm.</p>
+                    <p>🔹 Tốt nghiệp ngành <strong>Quản trị mạng máy tính</strong> tại Cao Đẳng Nghề Kiên Giang. Em tin rằng code không chỉ là công cụ mà còn là nghệ thuật.</p>
+                    <p>🔹 <strong>Hành trình tại MBStore:</strong> Ngày 13/04/2026, em chính thức gia nhập đội ngũ thực tập sinh tại MBStore. Sau gần 2 tháng làm việc và kết thúc kỳ thực tập vào ngày 5/6/2026, em nhận được giấy xác nhận thực tập và email đánh giá năng lực từ công ty. Trải nghiệm này giúp em hiểu cách vận hành doanh nghiệp và có thái độ làm việc chuyên nghiệp.</p>
+                    <div class="about-highlight">
+                        <i class="fas fa-quote-left" style="margin-right: 8px; color:#2563eb;"></i> 
+                        “Thiết kế không chỉ là vẻ ngoài, mà còn là cách nó vận hành.”
+                    </div>
+                    <p>Hiện tại em tập trung phát triển bản thân và web hiệu suất cao, mở rộng kiến thức AI & Cloud. Sẵn sàng hợp tác các dự án thú vị!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact + Social (AOS) -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Kết nối với Nhật Hào</h2>
+            <div class="contact-flex" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="150">
+                <a href="mailto:vonhathaoqtm3k14@gmail.com" class="contact-card"><i class="fas fa-envelope"></i> vonhathaoqtm3k14@gmail.com</a>
+                <a href="https://github.com/hao186188" class="contact-card"><i class="fab fa-github"></i> github / hao186188</a>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;" data-aos="fade-up" data-aos-delay="200">
+                <p style="color: var(--text-secondary);">Hãy để lại lời nhắn hoặc gửi email — em rất mong được kết nối với bạn!</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>© 2026 Võ Nhật Hào — Portfolio cá nhân. Thiết kế bằng trái tim và sự tỉ mỉ.</p>
+        <p style="margin-top: 8px; font-size: 0.8rem;">"Sáng tạo không giới hạn, code có tâm"</p>
+    </div>
+</footer>
+
+<!-- AOS JS Library -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Khởi tạo AOS với các tùy chọn mượt mà
+    AOS.init({
+        duration: 800,
+        once: true,         // Chạy 1 lần duy nhất khi scroll đến
+        offset: 100,        // Khoảng cách để kích hoạt hiệu ứng
+        easing: 'ease-out-quad',
+    });
+
+    // ---------- PRELOADER ----------
+    window.addEventListener('load', function() {
+        const preloader = document.getElementById('preloader');
+        setTimeout(() => {
+            preloader.classList.add('hide');
+        }, 800);
+    });
+
+    // ---------- DARK MODE ----------
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Light';
+    } else {
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark';
+    }
+
+    darkModeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark');
+        if (body.classList.contains('dark')) {
+            localStorage.setItem('darkMode', 'enabled');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Light';
+        } else {
+            localStorage.setItem('darkMode', 'disabled');
+            darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark';
+        }
+    });
+
+    // ---------- DOWNLOAD CV (hướng dẫn thay file thật) ----------
+    const downloadBtn = document.getElementById('downloadCVBtn');
+    downloadBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const link = document.createElement('a');
+        link.href = 'CV-NhatHao.pdf';
+        link.download = 'CV-NhatHao.pdf';
+        link.target = '_blank';
+        link.click();
+    });
+
+    // Smooth scroll cho toàn bộ nav
+    document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Hiệu ứng hover cho các nút
+    const btns = document.querySelectorAll('.btn, .btn-cv');
+    btns.forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+            btn.style.transition = 'all 0.2s ease';
+        });
+    });
+</script>
+</body>
+</html>
